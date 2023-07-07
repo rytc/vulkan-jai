@@ -2,6 +2,7 @@
 // Tested with vulkan 1.0 and 1.2
 // You can use this file to generate any version of vulkan bindings.
 // You only need to set the vulkan.h and vulkan lib paths.
+// Modified by Ryan Capote for Vulkan 1.3
 
 // config
 AT_COMPILE_TIME   :: true;
