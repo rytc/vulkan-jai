@@ -81,14 +81,14 @@ generate_bindings :: () -> bool {
         if vulkan_lib_path then array_add(*libpaths, vulkan_lib_path);
 
         array_add(*source_files, vulkan_h_location);
-        array_add(*system_include_paths, GENERATOR_DEFAULT_SYSTEM_INCLUDE_PATH);
+        array_add(*system_include_paths, ..get_default_system_include_paths());
 
         generate_library_declarations = false;
         omit_global_declarations = false;
         will_print_bindings = () {
             // Change the library name to be the same on all platforms
             // so that we don't have to generate identical bindings for every platform just because the library name is different.
-            context.generator.libraries[0].name = "libvulkan";
+            context.generator.libraries[0].identifier = "libvulkan";
         };
         footer = VULKAN_FOOTER;
 
@@ -152,7 +152,7 @@ vulkan_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration
     if decl.kind == .TYPEDEF && decl.type.type_of_typedef &&  decl.type.type_of_typedef.name == "VkFlags" {
         //print("TYPEDEF(VkFlags):%\n", << decl.name);
         flags_name := replace(decl.name, "Flags", "FlagBits");
-        enum_decl, found := table_find(*available_flag_bits, flags_name);
+        found, enum_decl := table_find(*available_flag_bits, flags_name);
         if found {
             type := New(CType);
             type.type_of_enum = enum_decl;
@@ -201,8 +201,8 @@ vulkan_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration
 
 
 
-        enum_value: *Enum.Enumerate;
-        for * struct_type_decl.enumerates {
+        enum_value: *Declaration;
+        for struct_type_decl.enumerates {
             if it.output_name == enum_value_name {
                 enum_value = it;
                 break;

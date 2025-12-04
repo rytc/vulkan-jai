@@ -6203,15 +6203,15 @@ VkPipelineCacheHeaderVersionOne :: struct {
     pipelineCacheUUID: [16] u8;
 }
 
-PFN_vkAllocationFunction :: #type (pUserData: *void, size: size_t, alignment: size_t, allocationScope: VkSystemAllocationScope) -> *void #c_call;
+PFN_vkAllocationFunction :: #type (pUserData: *void, size: u64, alignment: u64, allocationScope: VkSystemAllocationScope) -> *void #c_call;
 
 PFN_vkFreeFunction :: #type (pUserData: *void, pMemory: *void) -> void #c_call;
 
-PFN_vkInternalAllocationNotification :: #type (pUserData: *void, size: size_t, allocationType: VkInternalAllocationType, allocationScope: VkSystemAllocationScope) -> void #c_call;
+PFN_vkInternalAllocationNotification :: #type (pUserData: *void, size: u64, allocationType: VkInternalAllocationType, allocationScope: VkSystemAllocationScope) -> void #c_call;
 
-PFN_vkInternalFreeNotification :: #type (pUserData: *void, size: size_t, allocationType: VkInternalAllocationType, allocationScope: VkSystemAllocationScope) -> void #c_call;
+PFN_vkInternalFreeNotification :: #type (pUserData: *void, size: u64, allocationType: VkInternalAllocationType, allocationScope: VkSystemAllocationScope) -> void #c_call;
 
-PFN_vkReallocationFunction :: #type (pUserData: *void, pOriginal: *void, size: size_t, alignment: size_t, allocationScope: VkSystemAllocationScope) -> *void #c_call;
+PFN_vkReallocationFunction :: #type (pUserData: *void, pOriginal: *void, size: u64, alignment: u64, allocationScope: VkSystemAllocationScope) -> *void #c_call;
 
 PFN_vkVoidFunction :: #type () -> void #c_call;
 VkAllocationCallbacks :: struct {
@@ -6393,7 +6393,7 @@ VkPhysicalDeviceLimits :: struct {
     maxViewportDimensions:                           [2] u32;
     viewportBoundsRange:                             [2] float;
     viewportSubPixelBits:                            u32;
-    minMemoryMapAlignment:                           size_t;
+    minMemoryMapAlignment:                           u64;
     minTexelBufferOffsetAlignment:                   VkDeviceSize;
     minUniformBufferOffsetAlignment:                 VkDeviceSize;
     minStorageBufferOffsetAlignment:                 VkDeviceSize;
@@ -6702,7 +6702,7 @@ VkShaderModuleCreateInfo :: struct {
     sType:    VkStructureType = .SHADER_MODULE_CREATE_INFO;
     pNext:    *void;
     flags:    VkShaderModuleCreateFlags;
-    codeSize: size_t;
+    codeSize: u64;
     pCode:    *u32;
 }
 
@@ -6710,20 +6710,20 @@ VkPipelineCacheCreateInfo :: struct {
     sType:           VkStructureType = .PIPELINE_CACHE_CREATE_INFO;
     pNext:           *void;
     flags:           VkPipelineCacheCreateFlags;
-    initialDataSize: size_t;
+    initialDataSize: u64;
     pInitialData:    *void;
 }
 
 VkSpecializationMapEntry :: struct {
     constantID: u32;
     offset:     u32;
-    size:       size_t;
+    size:       u64;
 }
 
 VkSpecializationInfo :: struct {
     mapEntryCount: u32;
     pMapEntries:   *VkSpecializationMapEntry;
-    dataSize:      size_t;
+    dataSize:      u64;
     pData:         *void;
 }
 
@@ -7250,7 +7250,7 @@ PFN_vkSetEvent :: #type (device: VkDevice, event: VkEvent) -> VkResult #c_call;
 PFN_vkResetEvent :: #type (device: VkDevice, event: VkEvent) -> VkResult #c_call;
 PFN_vkCreateQueryPool :: #type (device: VkDevice, pCreateInfo: *VkQueryPoolCreateInfo, pAllocator: *VkAllocationCallbacks, pQueryPool: *VkQueryPool) -> VkResult #c_call;
 PFN_vkDestroyQueryPool :: #type (device: VkDevice, queryPool: VkQueryPool, pAllocator: *VkAllocationCallbacks) -> void #c_call;
-PFN_vkGetQueryPoolResults :: #type (device: VkDevice, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32, dataSize: size_t, pData: *void, stride: VkDeviceSize, flags: VkQueryResultFlags) -> VkResult #c_call;
+PFN_vkGetQueryPoolResults :: #type (device: VkDevice, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32, dataSize: u64, pData: *void, stride: VkDeviceSize, flags: VkQueryResultFlags) -> VkResult #c_call;
 PFN_vkCreateBuffer :: #type (device: VkDevice, pCreateInfo: *VkBufferCreateInfo, pAllocator: *VkAllocationCallbacks, pBuffer: *VkBuffer) -> VkResult #c_call;
 PFN_vkDestroyBuffer :: #type (device: VkDevice, buffer: VkBuffer, pAllocator: *VkAllocationCallbacks) -> void #c_call;
 PFN_vkCreateBufferView :: #type (device: VkDevice, pCreateInfo: *VkBufferViewCreateInfo, pAllocator: *VkAllocationCallbacks, pView: *VkBufferView) -> VkResult #c_call;
@@ -7264,7 +7264,7 @@ PFN_vkCreateShaderModule :: #type (device: VkDevice, pCreateInfo: *VkShaderModul
 PFN_vkDestroyShaderModule :: #type (device: VkDevice, shaderModule: VkShaderModule, pAllocator: *VkAllocationCallbacks) -> void #c_call;
 PFN_vkCreatePipelineCache :: #type (device: VkDevice, pCreateInfo: *VkPipelineCacheCreateInfo, pAllocator: *VkAllocationCallbacks, pPipelineCache: *VkPipelineCache) -> VkResult #c_call;
 PFN_vkDestroyPipelineCache :: #type (device: VkDevice, pipelineCache: VkPipelineCache, pAllocator: *VkAllocationCallbacks) -> void #c_call;
-PFN_vkGetPipelineCacheData :: #type (device: VkDevice, pipelineCache: VkPipelineCache, pDataSize: *size_t, pData: *void) -> VkResult #c_call;
+PFN_vkGetPipelineCacheData :: #type (device: VkDevice, pipelineCache: VkPipelineCache, pDataSize: *u64, pData: *void) -> VkResult #c_call;
 PFN_vkMergePipelineCaches :: #type (device: VkDevice, dstCache: VkPipelineCache, srcCacheCount: u32, pSrcCaches: *VkPipelineCache) -> VkResult #c_call;
 PFN_vkCreateGraphicsPipelines :: #type (device: VkDevice, pipelineCache: VkPipelineCache, createInfoCount: u32, pCreateInfos: *VkGraphicsPipelineCreateInfo, pAllocator: *VkAllocationCallbacks, pPipelines: *VkPipeline) -> VkResult #c_call;
 PFN_vkCreateComputePipelines :: #type (device: VkDevice, pipelineCache: VkPipelineCache, createInfoCount: u32, pCreateInfos: *VkComputePipelineCreateInfo, pAllocator: *VkAllocationCallbacks, pPipelines: *VkPipeline) -> VkResult #c_call;
@@ -7437,7 +7437,7 @@ vkCreateQueryPool :: (device: VkDevice, pCreateInfo: *VkQueryPoolCreateInfo, pAl
 
 vkDestroyQueryPool :: (device: VkDevice, queryPool: VkQueryPool, pAllocator: *VkAllocationCallbacks) -> void #foreign libvulkan;
 
-vkGetQueryPoolResults :: (device: VkDevice, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32, dataSize: size_t, pData: *void, stride: VkDeviceSize, flags: VkQueryResultFlags) -> VkResult #foreign libvulkan;
+vkGetQueryPoolResults :: (device: VkDevice, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32, dataSize: u64, pData: *void, stride: VkDeviceSize, flags: VkQueryResultFlags) -> VkResult #foreign libvulkan;
 
 vkCreateBuffer :: (device: VkDevice, pCreateInfo: *VkBufferCreateInfo, pAllocator: *VkAllocationCallbacks, pBuffer: *VkBuffer) -> VkResult #foreign libvulkan;
 
@@ -7465,7 +7465,7 @@ vkCreatePipelineCache :: (device: VkDevice, pCreateInfo: *VkPipelineCacheCreateI
 
 vkDestroyPipelineCache :: (device: VkDevice, pipelineCache: VkPipelineCache, pAllocator: *VkAllocationCallbacks) -> void #foreign libvulkan;
 
-vkGetPipelineCacheData :: (device: VkDevice, pipelineCache: VkPipelineCache, pDataSize: *size_t, pData: *void) -> VkResult #foreign libvulkan;
+vkGetPipelineCacheData :: (device: VkDevice, pipelineCache: VkPipelineCache, pDataSize: *u64, pData: *void) -> VkResult #foreign libvulkan;
 
 vkMergePipelineCaches :: (device: VkDevice, dstCache: VkPipelineCache, srcCacheCount: u32, pSrcCaches: *VkPipelineCache) -> VkResult #foreign libvulkan;
 
@@ -8313,8 +8313,8 @@ VkDescriptorUpdateTemplateEntry :: struct {
     dstArrayElement: u32;
     descriptorCount: u32;
     descriptorType:  VkDescriptorType;
-    offset:          size_t;
-    stride:          size_t;
+    offset:          u64;
+    stride:          u64;
 }
 
 VkDescriptorUpdateTemplateCreateInfo :: struct {
@@ -10676,7 +10676,7 @@ VkVideoSessionParametersKHR_T :: struct {}
 VkVideoSessionParametersKHR :: *VkVideoSessionParametersKHR_T;
 
 VkQueryResultStatusKHR :: enum u32 {
-    ERROR_KHR     :: 4294967295;
+    ERROR_KHR     :: 0xffff_ffff;
     NOT_READY_KHR :: 0;
     COMPLETE_KHR  :: 1;
     MAX_ENUM_KHR  :: 2147483647;
@@ -11251,18 +11251,21 @@ StdVideoH264NonVclNaluType :: enum u32 {
 }
 
 StdVideoH264SpsVuiFlags :: struct {
-    aspect_ratio_info_present_flag:  u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 1*/ overscan_info_present_flag:      u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 2*/ overscan_appropriate_flag:       u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 3*/ video_signal_type_present_flag:  u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 4*/ video_full_range_flag:           u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 5*/ color_description_present_flag:  u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 6*/ chroma_loc_info_present_flag:    u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 7*/ timing_info_present_flag:        u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 8*/ fixed_frame_rate_flag:           u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 9*/ bitstream_restriction_flag:      u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 10*/ nal_hrd_parameters_present_flag: u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 11*/ vcl_hrd_parameters_present_flag: u32;
+    __bitfield: u32;
+    /* 
+        aspect_ratio_info_present_flag: u32; /* 1 bits */
+        overscan_info_present_flag: u32; /* 1 bits */
+        overscan_appropriate_flag: u32; /* 1 bits */
+        video_signal_type_present_flag: u32; /* 1 bits */
+        video_full_range_flag: u32; /* 1 bits */
+        color_description_present_flag: u32; /* 1 bits */
+        chroma_loc_info_present_flag: u32; /* 1 bits */
+        timing_info_present_flag: u32; /* 1 bits */
+        fixed_frame_rate_flag: u32; /* 1 bits */
+        bitstream_restriction_flag: u32; /* 1 bits */
+        nal_hrd_parameters_present_flag: u32; /* 1 bits */
+        vcl_hrd_parameters_present_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH264HrdParameters :: struct {
@@ -11299,22 +11302,25 @@ StdVideoH264SequenceParameterSetVui :: struct {
 }
 
 StdVideoH264SpsFlags :: struct {
-    constraint_set0_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 1*/ constraint_set1_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 2*/ constraint_set2_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 3*/ constraint_set3_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 4*/ constraint_set4_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 5*/ constraint_set5_flag:                 u32;
-    #place constraint_set0_flag; /*bitfield 6*/ direct_8x8_inference_flag:            u32;
-    #place constraint_set0_flag; /*bitfield 7*/ mb_adaptive_frame_field_flag:         u32;
-    #place constraint_set0_flag; /*bitfield 8*/ frame_mbs_only_flag:                  u32;
-    #place constraint_set0_flag; /*bitfield 9*/ delta_pic_order_always_zero_flag:     u32;
-    #place constraint_set0_flag; /*bitfield 10*/ separate_colour_plane_flag:           u32;
-    #place constraint_set0_flag; /*bitfield 11*/ gaps_in_frame_num_value_allowed_flag: u32;
-    #place constraint_set0_flag; /*bitfield 12*/ qpprime_y_zero_transform_bypass_flag: u32;
-    #place constraint_set0_flag; /*bitfield 13*/ frame_cropping_flag:                  u32;
-    #place constraint_set0_flag; /*bitfield 14*/ seq_scaling_matrix_present_flag:      u32;
-    #place constraint_set0_flag; /*bitfield 15*/ vui_parameters_present_flag:          u32;
+    __bitfield: u32;
+    /* 
+        constraint_set0_flag: u32; /* 1 bits */
+        constraint_set1_flag: u32; /* 1 bits */
+        constraint_set2_flag: u32; /* 1 bits */
+        constraint_set3_flag: u32; /* 1 bits */
+        constraint_set4_flag: u32; /* 1 bits */
+        constraint_set5_flag: u32; /* 1 bits */
+        direct_8x8_inference_flag: u32; /* 1 bits */
+        mb_adaptive_frame_field_flag: u32; /* 1 bits */
+        frame_mbs_only_flag: u32; /* 1 bits */
+        delta_pic_order_always_zero_flag: u32; /* 1 bits */
+        separate_colour_plane_flag: u32; /* 1 bits */
+        gaps_in_frame_num_value_allowed_flag: u32; /* 1 bits */
+        qpprime_y_zero_transform_bypass_flag: u32; /* 1 bits */
+        frame_cropping_flag: u32; /* 1 bits */
+        seq_scaling_matrix_present_flag: u32; /* 1 bits */
+        vui_parameters_present_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH264ScalingLists :: struct {
@@ -11353,14 +11359,17 @@ StdVideoH264SequenceParameterSet :: struct {
 }
 
 StdVideoH264PpsFlags :: struct {
-    transform_8x8_mode_flag:                      u32;
-    #place transform_8x8_mode_flag; /*bitfield 1*/ redundant_pic_cnt_present_flag:               u32;
-    #place transform_8x8_mode_flag; /*bitfield 2*/ constrained_intra_pred_flag:                  u32;
-    #place transform_8x8_mode_flag; /*bitfield 3*/ deblocking_filter_control_present_flag:       u32;
-    #place transform_8x8_mode_flag; /*bitfield 4*/ weighted_pred_flag:                           u32;
-    #place transform_8x8_mode_flag; /*bitfield 5*/ bottom_field_pic_order_in_frame_present_flag: u32;
-    #place transform_8x8_mode_flag; /*bitfield 6*/ entropy_coding_mode_flag:                     u32;
-    #place transform_8x8_mode_flag; /*bitfield 7*/ pic_scaling_matrix_present_flag:              u32;
+    __bitfield: u32;
+    /* 
+        transform_8x8_mode_flag: u32; /* 1 bits */
+        redundant_pic_cnt_present_flag: u32; /* 1 bits */
+        constrained_intra_pred_flag: u32; /* 1 bits */
+        deblocking_filter_control_present_flag: u32; /* 1 bits */
+        weighted_pred_flag: u32; /* 1 bits */
+        bottom_field_pic_order_in_frame_present_flag: u32; /* 1 bits */
+        entropy_coding_mode_flag: u32; /* 1 bits */
+        pic_scaling_matrix_present_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH264PictureParameterSet :: struct {
@@ -11390,12 +11399,15 @@ StdVideoDecodeH264FieldOrderCount :: enum u32 {
 }
 
 StdVideoDecodeH264PictureInfoFlags :: struct {
-    field_pic_flag:           u32;
-    #place field_pic_flag; /*bitfield 1*/ is_intra:                 u32;
-    #place field_pic_flag; /*bitfield 2*/ IdrPicFlag:               u32;
-    #place field_pic_flag; /*bitfield 3*/ bottom_field_flag:        u32;
-    #place field_pic_flag; /*bitfield 4*/ is_reference:             u32;
-    #place field_pic_flag; /*bitfield 5*/ complementary_field_pair: u32;
+    __bitfield: u32;
+    /* 
+        field_pic_flag: u32; /* 1 bits */
+        is_intra: u32; /* 1 bits */
+        IdrPicFlag: u32; /* 1 bits */
+        bottom_field_flag: u32; /* 1 bits */
+        is_reference: u32; /* 1 bits */
+        complementary_field_pair: u32; /* 1 bits */;
+    */
 }
 
 StdVideoDecodeH264PictureInfo :: struct {
@@ -11410,10 +11422,13 @@ StdVideoDecodeH264PictureInfo :: struct {
 }
 
 StdVideoDecodeH264ReferenceInfoFlags :: struct {
-    top_field_flag:               u32;
-    #place top_field_flag; /*bitfield 1*/ bottom_field_flag:            u32;
-    #place top_field_flag; /*bitfield 2*/ used_for_long_term_reference: u32;
-    #place top_field_flag; /*bitfield 3*/ is_non_existing:              u32;
+    __bitfield: u32;
+    /* 
+        top_field_flag: u32; /* 1 bits */
+        bottom_field_flag: u32; /* 1 bits */
+        used_for_long_term_reference: u32; /* 1 bits */
+        is_non_existing: u32; /* 1 bits */;
+    */
 }
 
 StdVideoDecodeH264ReferenceInfo :: struct {
@@ -12272,13 +12287,16 @@ StdVideoH265SubLayerHrdParameters :: struct {
 }
 
 StdVideoH265HrdFlags :: struct {
-    nal_hrd_parameters_present_flag:           u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 1*/ vcl_hrd_parameters_present_flag:           u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 2*/ sub_pic_hrd_params_present_flag:           u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 3*/ sub_pic_cpb_params_in_pic_timing_sei_flag: u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 4*/ fixed_pic_rate_general_flag:               u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 12*/ fixed_pic_rate_within_cvs_flag:            u32;
-    #place nal_hrd_parameters_present_flag; /*bitfield 20*/ low_delay_hrd_flag:                        u32;
+    __bitfield: u32;
+    /* 
+        nal_hrd_parameters_present_flag: u32; /* 1 bits */
+        vcl_hrd_parameters_present_flag: u32; /* 1 bits */
+        sub_pic_hrd_params_present_flag: u32; /* 1 bits */
+        sub_pic_cpb_params_in_pic_timing_sei_flag: u32; /* 1 bits */
+        fixed_pic_rate_general_flag: u32; /* 8 bits */
+        fixed_pic_rate_within_cvs_flag: u32; /* 8 bits */
+        low_delay_hrd_flag: u32; /* 8 bits */;
+    */
 }
 
 StdVideoH265HrdParameters :: struct {
@@ -12300,18 +12318,24 @@ StdVideoH265HrdParameters :: struct {
 }
 
 StdVideoH265VpsFlags :: struct {
-    vps_temporal_id_nesting_flag:             u32;
-    #place vps_temporal_id_nesting_flag; /*bitfield 1*/ vps_sub_layer_ordering_info_present_flag: u32;
-    #place vps_temporal_id_nesting_flag; /*bitfield 2*/ vps_timing_info_present_flag:             u32;
-    #place vps_temporal_id_nesting_flag; /*bitfield 3*/ vps_poc_proportional_to_timing_flag:      u32;
+    __bitfield: u32;
+    /* 
+        vps_temporal_id_nesting_flag: u32; /* 1 bits */
+        vps_sub_layer_ordering_info_present_flag: u32; /* 1 bits */
+        vps_timing_info_present_flag: u32; /* 1 bits */
+        vps_poc_proportional_to_timing_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265ProfileTierLevelFlags :: struct {
-    general_tier_flag:                  u32;
-    #place general_tier_flag; /*bitfield 1*/ general_progressive_source_flag:    u32;
-    #place general_tier_flag; /*bitfield 2*/ general_interlaced_source_flag:     u32;
-    #place general_tier_flag; /*bitfield 3*/ general_non_packed_constraint_flag: u32;
-    #place general_tier_flag; /*bitfield 4*/ general_frame_only_constraint_flag: u32;
+    __bitfield: u32;
+    /* 
+        general_tier_flag: u32; /* 1 bits */
+        general_progressive_source_flag: u32; /* 1 bits */
+        general_interlaced_source_flag: u32; /* 1 bits */
+        general_non_packed_constraint_flag: u32; /* 1 bits */
+        general_frame_only_constraint_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265ProfileTierLevel :: struct {
@@ -12345,24 +12369,27 @@ StdVideoH265ScalingLists :: struct {
 }
 
 StdVideoH265SpsVuiFlags :: struct {
-    aspect_ratio_info_present_flag:          u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 1*/ overscan_info_present_flag:              u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 2*/ overscan_appropriate_flag:               u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 3*/ video_signal_type_present_flag:          u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 4*/ video_full_range_flag:                   u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 5*/ colour_description_present_flag:         u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 6*/ chroma_loc_info_present_flag:            u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 7*/ neutral_chroma_indication_flag:          u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 8*/ field_seq_flag:                          u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 9*/ frame_field_info_present_flag:           u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 10*/ default_display_window_flag:             u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 11*/ vui_timing_info_present_flag:            u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 12*/ vui_poc_proportional_to_timing_flag:     u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 13*/ vui_hrd_parameters_present_flag:         u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 14*/ bitstream_restriction_flag:              u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 15*/ tiles_fixed_structure_flag:              u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 16*/ motion_vectors_over_pic_boundaries_flag: u32;
-    #place aspect_ratio_info_present_flag; /*bitfield 17*/ restricted_ref_pic_lists_flag:           u32;
+    __bitfield: u32;
+    /* 
+        aspect_ratio_info_present_flag: u32; /* 1 bits */
+        overscan_info_present_flag: u32; /* 1 bits */
+        overscan_appropriate_flag: u32; /* 1 bits */
+        video_signal_type_present_flag: u32; /* 1 bits */
+        video_full_range_flag: u32; /* 1 bits */
+        colour_description_present_flag: u32; /* 1 bits */
+        chroma_loc_info_present_flag: u32; /* 1 bits */
+        neutral_chroma_indication_flag: u32; /* 1 bits */
+        field_seq_flag: u32; /* 1 bits */
+        frame_field_info_present_flag: u32; /* 1 bits */
+        default_display_window_flag: u32; /* 1 bits */
+        vui_timing_info_present_flag: u32; /* 1 bits */
+        vui_poc_proportional_to_timing_flag: u32; /* 1 bits */
+        vui_hrd_parameters_present_flag: u32; /* 1 bits */
+        bitstream_restriction_flag: u32; /* 1 bits */
+        tiles_fixed_structure_flag: u32; /* 1 bits */
+        motion_vectors_over_pic_boundaries_flag: u32; /* 1 bits */
+        restricted_ref_pic_lists_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265SequenceParameterSetVui :: struct {
@@ -12399,41 +12426,47 @@ StdVideoH265PredictorPaletteEntries :: struct {
 }
 
 StdVideoH265SpsFlags :: struct {
-    sps_temporal_id_nesting_flag:                    u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 1*/ separate_colour_plane_flag:                      u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 2*/ conformance_window_flag:                         u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 3*/ sps_sub_layer_ordering_info_present_flag:        u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 4*/ scaling_list_enabled_flag:                       u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 5*/ sps_scaling_list_data_present_flag:              u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 6*/ amp_enabled_flag:                                u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 7*/ sample_adaptive_offset_enabled_flag:             u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 8*/ pcm_enabled_flag:                                u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 9*/ pcm_loop_filter_disabled_flag:                   u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 10*/ long_term_ref_pics_present_flag:                 u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 11*/ sps_temporal_mvp_enabled_flag:                   u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 12*/ strong_intra_smoothing_enabled_flag:             u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 13*/ vui_parameters_present_flag:                     u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 14*/ sps_extension_present_flag:                      u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 15*/ sps_range_extension_flag:                        u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 16*/ transform_skip_rotation_enabled_flag:            u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 17*/ transform_skip_context_enabled_flag:             u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 18*/ implicit_rdpcm_enabled_flag:                     u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 19*/ explicit_rdpcm_enabled_flag:                     u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 20*/ extended_precision_processing_flag:              u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 21*/ intra_smoothing_disabled_flag:                   u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 22*/ high_precision_offsets_enabled_flag:             u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 23*/ persistent_rice_adaptation_enabled_flag:         u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 24*/ cabac_bypass_alignment_enabled_flag:             u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 25*/ sps_scc_extension_flag:                          u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 26*/ sps_curr_pic_ref_enabled_flag:                   u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 27*/ palette_mode_enabled_flag:                       u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 28*/ sps_palette_predictor_initializers_present_flag: u32;
-    #place sps_temporal_id_nesting_flag; /*bitfield 29*/ intra_boundary_filtering_disabled_flag:          u32;
+    __bitfield: u32;
+    /* 
+        sps_temporal_id_nesting_flag: u32; /* 1 bits */
+        separate_colour_plane_flag: u32; /* 1 bits */
+        conformance_window_flag: u32; /* 1 bits */
+        sps_sub_layer_ordering_info_present_flag: u32; /* 1 bits */
+        scaling_list_enabled_flag: u32; /* 1 bits */
+        sps_scaling_list_data_present_flag: u32; /* 1 bits */
+        amp_enabled_flag: u32; /* 1 bits */
+        sample_adaptive_offset_enabled_flag: u32; /* 1 bits */
+        pcm_enabled_flag: u32; /* 1 bits */
+        pcm_loop_filter_disabled_flag: u32; /* 1 bits */
+        long_term_ref_pics_present_flag: u32; /* 1 bits */
+        sps_temporal_mvp_enabled_flag: u32; /* 1 bits */
+        strong_intra_smoothing_enabled_flag: u32; /* 1 bits */
+        vui_parameters_present_flag: u32; /* 1 bits */
+        sps_extension_present_flag: u32; /* 1 bits */
+        sps_range_extension_flag: u32; /* 1 bits */
+        transform_skip_rotation_enabled_flag: u32; /* 1 bits */
+        transform_skip_context_enabled_flag: u32; /* 1 bits */
+        implicit_rdpcm_enabled_flag: u32; /* 1 bits */
+        explicit_rdpcm_enabled_flag: u32; /* 1 bits */
+        extended_precision_processing_flag: u32; /* 1 bits */
+        intra_smoothing_disabled_flag: u32; /* 1 bits */
+        high_precision_offsets_enabled_flag: u32; /* 1 bits */
+        persistent_rice_adaptation_enabled_flag: u32; /* 1 bits */
+        cabac_bypass_alignment_enabled_flag: u32; /* 1 bits */
+        sps_scc_extension_flag: u32; /* 1 bits */
+        sps_curr_pic_ref_enabled_flag: u32; /* 1 bits */
+        palette_mode_enabled_flag: u32; /* 1 bits */
+        sps_palette_predictor_initializers_present_flag: u32; /* 1 bits */
+        intra_boundary_filtering_disabled_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265ShortTermRefPicSetFlags :: struct {
-    inter_ref_pic_set_prediction_flag: u32;
-    #place inter_ref_pic_set_prediction_flag; /*bitfield 1*/ delta_rps_sign:                    u32;
+    __bitfield: u32;
+    /* 
+        inter_ref_pic_set_prediction_flag: u32; /* 1 bits */
+        delta_rps_sign: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265ShortTermRefPicSet :: struct {
@@ -12501,37 +12534,40 @@ StdVideoH265SequenceParameterSet :: struct {
 }
 
 StdVideoH265PpsFlags :: struct {
-    dependent_slice_segments_enabled_flag:           u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 1*/ output_flag_present_flag:                        u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 2*/ sign_data_hiding_enabled_flag:                   u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 3*/ cabac_init_present_flag:                         u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 4*/ constrained_intra_pred_flag:                     u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 5*/ transform_skip_enabled_flag:                     u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 6*/ cu_qp_delta_enabled_flag:                        u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 7*/ pps_slice_chroma_qp_offsets_present_flag:        u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 8*/ weighted_pred_flag:                              u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 9*/ weighted_bipred_flag:                            u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 10*/ transquant_bypass_enabled_flag:                  u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 11*/ tiles_enabled_flag:                              u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 12*/ entropy_coding_sync_enabled_flag:                u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 13*/ uniform_spacing_flag:                            u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 14*/ loop_filter_across_tiles_enabled_flag:           u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 15*/ pps_loop_filter_across_slices_enabled_flag:      u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 16*/ deblocking_filter_control_present_flag:          u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 17*/ deblocking_filter_override_enabled_flag:         u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 18*/ pps_deblocking_filter_disabled_flag:             u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 19*/ pps_scaling_list_data_present_flag:              u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 20*/ lists_modification_present_flag:                 u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 21*/ slice_segment_header_extension_present_flag:     u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 22*/ pps_extension_present_flag:                      u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 23*/ cross_component_prediction_enabled_flag:         u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 24*/ chroma_qp_offset_list_enabled_flag:              u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 25*/ pps_curr_pic_ref_enabled_flag:                   u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 26*/ residual_adaptive_colour_transform_enabled_flag: u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 27*/ pps_slice_act_qp_offsets_present_flag:           u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 28*/ pps_palette_predictor_initializers_present_flag: u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 29*/ monochrome_palette_flag:                         u32;
-    #place dependent_slice_segments_enabled_flag; /*bitfield 30*/ pps_range_extension_flag:                        u32;
+    __bitfield: u32;
+    /* 
+        dependent_slice_segments_enabled_flag: u32; /* 1 bits */
+        output_flag_present_flag: u32; /* 1 bits */
+        sign_data_hiding_enabled_flag: u32; /* 1 bits */
+        cabac_init_present_flag: u32; /* 1 bits */
+        constrained_intra_pred_flag: u32; /* 1 bits */
+        transform_skip_enabled_flag: u32; /* 1 bits */
+        cu_qp_delta_enabled_flag: u32; /* 1 bits */
+        pps_slice_chroma_qp_offsets_present_flag: u32; /* 1 bits */
+        weighted_pred_flag: u32; /* 1 bits */
+        weighted_bipred_flag: u32; /* 1 bits */
+        transquant_bypass_enabled_flag: u32; /* 1 bits */
+        tiles_enabled_flag: u32; /* 1 bits */
+        entropy_coding_sync_enabled_flag: u32; /* 1 bits */
+        uniform_spacing_flag: u32; /* 1 bits */
+        loop_filter_across_tiles_enabled_flag: u32; /* 1 bits */
+        pps_loop_filter_across_slices_enabled_flag: u32; /* 1 bits */
+        deblocking_filter_control_present_flag: u32; /* 1 bits */
+        deblocking_filter_override_enabled_flag: u32; /* 1 bits */
+        pps_deblocking_filter_disabled_flag: u32; /* 1 bits */
+        pps_scaling_list_data_present_flag: u32; /* 1 bits */
+        lists_modification_present_flag: u32; /* 1 bits */
+        slice_segment_header_extension_present_flag: u32; /* 1 bits */
+        pps_extension_present_flag: u32; /* 1 bits */
+        cross_component_prediction_enabled_flag: u32; /* 1 bits */
+        chroma_qp_offset_list_enabled_flag: u32; /* 1 bits */
+        pps_curr_pic_ref_enabled_flag: u32; /* 1 bits */
+        residual_adaptive_colour_transform_enabled_flag: u32; /* 1 bits */
+        pps_slice_act_qp_offsets_present_flag: u32; /* 1 bits */
+        pps_palette_predictor_initializers_present_flag: u32; /* 1 bits */
+        monochrome_palette_flag: u32; /* 1 bits */
+        pps_range_extension_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoH265PictureParameterSet :: struct {
@@ -12574,10 +12610,13 @@ StdVideoH265PictureParameterSet :: struct {
 }
 
 StdVideoDecodeH265PictureInfoFlags :: struct {
-    IrapPicFlag:                     u32;
-    #place IrapPicFlag; /*bitfield 1*/ IdrPicFlag:                      u32;
-    #place IrapPicFlag; /*bitfield 2*/ IsReference:                     u32;
-    #place IrapPicFlag; /*bitfield 3*/ short_term_ref_pic_set_sps_flag: u32;
+    __bitfield: u32;
+    /* 
+        IrapPicFlag: u32; /* 1 bits */
+        IdrPicFlag: u32; /* 1 bits */
+        IsReference: u32; /* 1 bits */
+        short_term_ref_pic_set_sps_flag: u32; /* 1 bits */;
+    */
 }
 
 StdVideoDecodeH265PictureInfo :: struct {
@@ -12595,8 +12634,11 @@ StdVideoDecodeH265PictureInfo :: struct {
 }
 
 StdVideoDecodeH265ReferenceInfoFlags :: struct {
-    used_for_long_term_reference: u32;
-    #place used_for_long_term_reference; /*bitfield 1*/ unused_for_reference:         u32;
+    __bitfield: u32;
+    /* 
+        used_for_long_term_reference: u32; /* 1 bits */
+        unused_for_reference: u32; /* 1 bits */;
+    */
 }
 
 StdVideoDecodeH265ReferenceInfo :: struct {
@@ -12914,7 +12956,7 @@ VkPipelineExecutableInternalRepresentationKHR :: struct {
     name:        [256] u8;
     description: [256] u8;
     isText:      VkBool32;
-    dataSize:    size_t;
+    dataSize:    u64;
     pData:       *void;
 }
 
@@ -13236,7 +13278,7 @@ VkDebugReportFlagBitsEXT :: enum_flags u32 {
 }
 
 VkDebugReportFlagsEXT :: VkDebugReportFlagBitsEXT;
-PFN_vkDebugReportCallbackEXT :: #type (flags: VkDebugReportFlagsEXT, objectType: VkDebugReportObjectTypeEXT, object: u64, location: size_t, messageCode: s32, pLayerPrefix: *u8, pMessage: *u8, pUserData: *void) -> VkBool32 #c_call;
+PFN_vkDebugReportCallbackEXT :: #type (flags: VkDebugReportFlagsEXT, objectType: VkDebugReportObjectTypeEXT, object: u64, location: u64, messageCode: s32, pLayerPrefix: *u8, pMessage: *u8, pUserData: *void) -> VkBool32 #c_call;
 
 VkDebugReportCallbackCreateInfoEXT :: struct {
     sType:       VkStructureType = .DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
@@ -13248,7 +13290,7 @@ VkDebugReportCallbackCreateInfoEXT :: struct {
 
 PFN_vkCreateDebugReportCallbackEXT :: #type (instance: VkInstance, pCreateInfo: *VkDebugReportCallbackCreateInfoEXT, pAllocator: *VkAllocationCallbacks, pCallback: *VkDebugReportCallbackEXT) -> VkResult #c_call;
 PFN_vkDestroyDebugReportCallbackEXT :: #type (instance: VkInstance, callback: VkDebugReportCallbackEXT, pAllocator: *VkAllocationCallbacks) -> void #c_call;
-PFN_vkDebugReportMessageEXT :: #type (instance: VkInstance, flags: VkDebugReportFlagsEXT, objectType: VkDebugReportObjectTypeEXT, object: u64, location: size_t, messageCode: s32, pLayerPrefix: *u8, pMessage: *u8) -> void #c_call;
+PFN_vkDebugReportMessageEXT :: #type (instance: VkInstance, flags: VkDebugReportFlagsEXT, objectType: VkDebugReportObjectTypeEXT, object: u64, location: u64, messageCode: s32, pLayerPrefix: *u8, pMessage: *u8) -> void #c_call;
 
 VkRasterizationOrderAMD :: enum u32 {
     STRICT_AMD   :: 0;
@@ -13280,7 +13322,7 @@ VkDebugMarkerObjectTagInfoEXT :: struct {
     objectType: VkDebugReportObjectTypeEXT;
     object:     u64;
     tagName:    u64;
-    tagSize:    size_t;
+    tagSize:    u64;
     pTag:       *void;
 }
 
@@ -13361,7 +13403,7 @@ VkCuFunctionNVX :: *VkCuFunctionNVX_T;
 VkCuModuleCreateInfoNVX :: struct {
     sType:    VkStructureType = .CU_MODULE_CREATE_INFO_NVX;
     pNext:    *void;
-    dataSize: size_t;
+    dataSize: u64;
     pData:    *void;
 }
 
@@ -13383,9 +13425,9 @@ VkCuLaunchInfoNVX :: struct {
     blockDimY:      u32;
     blockDimZ:      u32;
     sharedMemBytes: u32;
-    paramCount:     size_t;
+    paramCount:     u64;
     pParams:        **void;
-    extraCount:     size_t;
+    extraCount:     u64;
     pExtras:        **void;
 }
 
@@ -13438,8 +13480,8 @@ VkShaderResourceUsageAMD :: struct {
     numUsedVgprs:             u32;
     numUsedSgprs:             u32;
     ldsSizePerLocalWorkGroup: u32;
-    ldsUsageSizeInBytes:      size_t;
-    scratchMemUsageInBytes:   size_t;
+    ldsUsageSizeInBytes:      u64;
+    scratchMemUsageInBytes:   u64;
 }
 
 VkShaderStatisticsInfoAMD :: struct {
@@ -13452,7 +13494,7 @@ VkShaderStatisticsInfoAMD :: struct {
     computeWorkGroupSize: [3] u32;
 }
 
-PFN_vkGetShaderInfoAMD :: #type (device: VkDevice, pipeline: VkPipeline, shaderStage: VkShaderStageFlagBits, infoType: VkShaderInfoTypeAMD, pInfoSize: *size_t, pInfo: *void) -> VkResult #c_call;
+PFN_vkGetShaderInfoAMD :: #type (device: VkDevice, pipeline: VkPipeline, shaderStage: VkShaderStageFlagBits, infoType: VkShaderInfoTypeAMD, pInfoSize: *u64, pInfo: *void) -> VkResult #c_call;
 
 VkPhysicalDeviceCornerSampledImageFeaturesNV :: struct {
     sType:              VkStructureType = .PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV;
@@ -13983,7 +14025,7 @@ VkDebugUtilsObjectTagInfoEXT :: struct {
     objectType:   VkObjectType;
     objectHandle: u64;
     tagName:      u64;
-    tagSize:      size_t;
+    tagSize:      u64;
     pTag:         *void;
 }
 
@@ -14230,7 +14272,7 @@ VkValidationCacheCreateInfoEXT :: struct {
     sType:           VkStructureType = .VALIDATION_CACHE_CREATE_INFO_EXT;
     pNext:           *void;
     flags:           VkValidationCacheCreateFlagsEXT;
-    initialDataSize: size_t;
+    initialDataSize: u64;
     pInitialData:    *void;
 }
 
@@ -14243,7 +14285,7 @@ VkShaderModuleValidationCacheCreateInfoEXT :: struct {
 PFN_vkCreateValidationCacheEXT :: #type (device: VkDevice, pCreateInfo: *VkValidationCacheCreateInfoEXT, pAllocator: *VkAllocationCallbacks, pValidationCache: *VkValidationCacheEXT) -> VkResult #c_call;
 PFN_vkDestroyValidationCacheEXT :: #type (device: VkDevice, validationCache: VkValidationCacheEXT, pAllocator: *VkAllocationCallbacks) -> void #c_call;
 PFN_vkMergeValidationCachesEXT :: #type (device: VkDevice, dstCache: VkValidationCacheEXT, srcCacheCount: u32, pSrcCaches: *VkValidationCacheEXT) -> VkResult #c_call;
-PFN_vkGetValidationCacheDataEXT :: #type (device: VkDevice, validationCache: VkValidationCacheEXT, pDataSize: *size_t, pData: *void) -> VkResult #c_call;
+PFN_vkGetValidationCacheDataEXT :: #type (device: VkDevice, validationCache: VkValidationCacheEXT, pDataSize: *u64, pData: *void) -> VkResult #c_call;
 
 VkDescriptorBindingFlagBitsEXT :: VkDescriptorBindingFlagBits;
 
@@ -14676,12 +14718,16 @@ VkAabbPositionsKHR :: struct {
 VkAabbPositionsNV :: VkAabbPositionsKHR;
 
 VkAccelerationStructureInstanceKHR :: struct {
-    transform:                              VkTransformMatrixKHR;
-    instanceCustomIndex:                    u32;
-    #place instanceCustomIndex; /*bitfield 24*/ mask:                                   u32;
-    instanceShaderBindingTableRecordOffset: u32;
-    #place instanceShaderBindingTableRecordOffset; /*bitfield 24*/ flags:                                  VkGeometryInstanceFlagsKHR;
-    accelerationStructureReference:         u64;
+    transform:                      VkTransformMatrixKHR;
+    __bitfield:                     [8] u8;
+    /* 
+        instanceCustomIndex: u32; /* 24 bits */
+        mask: u32; /* 8 bits */
+        instanceShaderBindingTableRecordOffset: u32; /* 24 bits */
+        flags: VkGeometryInstanceFlagsKHR; /* 8 bits */;
+    */
+
+    accelerationStructureReference: u64;
 }
 
 VkAccelerationStructureInstanceNV :: VkAccelerationStructureInstanceKHR;
@@ -14694,9 +14740,9 @@ PFN_vkCmdBuildAccelerationStructureNV :: #type (commandBuffer: VkCommandBuffer, 
 PFN_vkCmdCopyAccelerationStructureNV :: #type (commandBuffer: VkCommandBuffer, dst: VkAccelerationStructureNV, src: VkAccelerationStructureNV, mode: VkCopyAccelerationStructureModeKHR) -> void #c_call;
 PFN_vkCmdTraceRaysNV :: #type (commandBuffer: VkCommandBuffer, raygenShaderBindingTableBuffer: VkBuffer, raygenShaderBindingOffset: VkDeviceSize, missShaderBindingTableBuffer: VkBuffer, missShaderBindingOffset: VkDeviceSize, missShaderBindingStride: VkDeviceSize, hitShaderBindingTableBuffer: VkBuffer, hitShaderBindingOffset: VkDeviceSize, hitShaderBindingStride: VkDeviceSize, callableShaderBindingTableBuffer: VkBuffer, callableShaderBindingOffset: VkDeviceSize, callableShaderBindingStride: VkDeviceSize, width: u32, height: u32, depth: u32) -> void #c_call;
 PFN_vkCreateRayTracingPipelinesNV :: #type (device: VkDevice, pipelineCache: VkPipelineCache, createInfoCount: u32, pCreateInfos: *VkRayTracingPipelineCreateInfoNV, pAllocator: *VkAllocationCallbacks, pPipelines: *VkPipeline) -> VkResult #c_call;
-PFN_vkGetRayTracingShaderGroupHandlesKHR :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: size_t, pData: *void) -> VkResult #c_call;
-PFN_vkGetRayTracingShaderGroupHandlesNV :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: size_t, pData: *void) -> VkResult #c_call;
-PFN_vkGetAccelerationStructureHandleNV :: #type (device: VkDevice, accelerationStructure: VkAccelerationStructureNV, dataSize: size_t, pData: *void) -> VkResult #c_call;
+PFN_vkGetRayTracingShaderGroupHandlesKHR :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: u64, pData: *void) -> VkResult #c_call;
+PFN_vkGetRayTracingShaderGroupHandlesNV :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: u64, pData: *void) -> VkResult #c_call;
+PFN_vkGetAccelerationStructureHandleNV :: #type (device: VkDevice, accelerationStructure: VkAccelerationStructureNV, dataSize: u64, pData: *void) -> VkResult #c_call;
 PFN_vkCmdWriteAccelerationStructuresPropertiesNV :: #type (commandBuffer: VkCommandBuffer, accelerationStructureCount: u32, pAccelerationStructures: *VkAccelerationStructureNV, queryType: VkQueryType, queryPool: VkQueryPool, firstQuery: u32) -> void #c_call;
 PFN_vkCompileDeferredNV :: #type (device: VkDevice, pipeline: VkPipeline, shader: u32) -> VkResult #c_call;
 
@@ -15980,25 +16026,25 @@ VkPhysicalDeviceDescriptorBufferPropertiesEXT :: struct {
     maxSamplerDescriptorBufferBindings:                   u32;
     maxEmbeddedImmutableSamplerBindings:                  u32;
     maxEmbeddedImmutableSamplers:                         u32;
-    bufferCaptureReplayDescriptorDataSize:                size_t;
-    imageCaptureReplayDescriptorDataSize:                 size_t;
-    imageViewCaptureReplayDescriptorDataSize:             size_t;
-    samplerCaptureReplayDescriptorDataSize:               size_t;
-    accelerationStructureCaptureReplayDescriptorDataSize: size_t;
-    samplerDescriptorSize:                                size_t;
-    combinedImageSamplerDescriptorSize:                   size_t;
-    sampledImageDescriptorSize:                           size_t;
-    storageImageDescriptorSize:                           size_t;
-    uniformTexelBufferDescriptorSize:                     size_t;
-    robustUniformTexelBufferDescriptorSize:               size_t;
-    storageTexelBufferDescriptorSize:                     size_t;
-    robustStorageTexelBufferDescriptorSize:               size_t;
-    uniformBufferDescriptorSize:                          size_t;
-    robustUniformBufferDescriptorSize:                    size_t;
-    storageBufferDescriptorSize:                          size_t;
-    robustStorageBufferDescriptorSize:                    size_t;
-    inputAttachmentDescriptorSize:                        size_t;
-    accelerationStructureDescriptorSize:                  size_t;
+    bufferCaptureReplayDescriptorDataSize:                u64;
+    imageCaptureReplayDescriptorDataSize:                 u64;
+    imageViewCaptureReplayDescriptorDataSize:             u64;
+    samplerCaptureReplayDescriptorDataSize:               u64;
+    accelerationStructureCaptureReplayDescriptorDataSize: u64;
+    samplerDescriptorSize:                                u64;
+    combinedImageSamplerDescriptorSize:                   u64;
+    sampledImageDescriptorSize:                           u64;
+    storageImageDescriptorSize:                           u64;
+    uniformTexelBufferDescriptorSize:                     u64;
+    robustUniformTexelBufferDescriptorSize:               u64;
+    storageTexelBufferDescriptorSize:                     u64;
+    robustStorageTexelBufferDescriptorSize:               u64;
+    uniformBufferDescriptorSize:                          u64;
+    robustUniformBufferDescriptorSize:                    u64;
+    storageBufferDescriptorSize:                          u64;
+    robustStorageBufferDescriptorSize:                    u64;
+    inputAttachmentDescriptorSize:                        u64;
+    accelerationStructureDescriptorSize:                  u64;
     maxSamplerDescriptorBufferRange:                      VkDeviceSize;
     maxResourceDescriptorBufferRange:                     VkDeviceSize;
     samplerDescriptorBufferAddressSpaceSize:              VkDeviceSize;
@@ -16009,7 +16055,7 @@ VkPhysicalDeviceDescriptorBufferPropertiesEXT :: struct {
 VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT :: struct {
     sType:                                        VkStructureType = .PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT;
     pNext:                                        *void;
-    combinedImageSamplerDensityMapDescriptorSize: size_t;
+    combinedImageSamplerDensityMapDescriptorSize: u64;
 }
 
 VkPhysicalDeviceDescriptorBufferFeaturesEXT :: struct {
@@ -16101,7 +16147,7 @@ VkAccelerationStructureCaptureDescriptorDataInfoEXT :: struct {
 
 PFN_vkGetDescriptorSetLayoutSizeEXT :: #type (device: VkDevice, layout: VkDescriptorSetLayout, pLayoutSizeInBytes: *VkDeviceSize) -> void #c_call;
 PFN_vkGetDescriptorSetLayoutBindingOffsetEXT :: #type (device: VkDevice, layout: VkDescriptorSetLayout, binding: u32, pOffset: *VkDeviceSize) -> void #c_call;
-PFN_vkGetDescriptorEXT :: #type (device: VkDevice, pDescriptorInfo: *VkDescriptorGetInfoEXT, dataSize: size_t, pDescriptor: *void) -> void #c_call;
+PFN_vkGetDescriptorEXT :: #type (device: VkDevice, pDescriptorInfo: *VkDescriptorGetInfoEXT, dataSize: u64, pDescriptor: *void) -> void #c_call;
 PFN_vkCmdBindDescriptorBuffersEXT :: #type (commandBuffer: VkCommandBuffer, bufferCount: u32, pBindingInfos: *VkDescriptorBufferBindingInfoEXT) -> void #c_call;
 PFN_vkCmdSetDescriptorBufferOffsetsEXT :: #type (commandBuffer: VkCommandBuffer, pipelineBindPoint: VkPipelineBindPoint, layout: VkPipelineLayout, firstSet: u32, setCount: u32, pBufferIndices: *u32, pOffsets: *VkDeviceSize) -> void #c_call;
 PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT :: #type (commandBuffer: VkCommandBuffer, pipelineBindPoint: VkPipelineBindPoint, layout: VkPipelineLayout, set: u32) -> void #c_call;
@@ -16248,13 +16294,17 @@ VkAccelerationStructureMotionInfoNV :: struct {
 }
 
 VkAccelerationStructureMatrixMotionInstanceNV :: struct {
-    transformT0:                            VkTransformMatrixKHR;
-    transformT1:                            VkTransformMatrixKHR;
-    instanceCustomIndex:                    u32;
-    #place instanceCustomIndex; /*bitfield 24*/ mask:                                   u32;
-    instanceShaderBindingTableRecordOffset: u32;
-    #place instanceShaderBindingTableRecordOffset; /*bitfield 24*/ flags:                                  VkGeometryInstanceFlagsKHR;
-    accelerationStructureReference:         u64;
+    transformT0:                    VkTransformMatrixKHR;
+    transformT1:                    VkTransformMatrixKHR;
+    __bitfield:                     [8] u8;
+    /* 
+        instanceCustomIndex: u32; /* 24 bits */
+        mask: u32; /* 8 bits */
+        instanceShaderBindingTableRecordOffset: u32; /* 24 bits */
+        flags: VkGeometryInstanceFlagsKHR; /* 8 bits */;
+    */
+
+    accelerationStructureReference: u64;
 }
 
 VkSRTDataNV :: struct {
@@ -16277,13 +16327,17 @@ VkSRTDataNV :: struct {
 }
 
 VkAccelerationStructureSRTMotionInstanceNV :: struct {
-    transformT0:                            VkSRTDataNV;
-    transformT1:                            VkSRTDataNV;
-    instanceCustomIndex:                    u32;
-    #place instanceCustomIndex; /*bitfield 24*/ mask:                                   u32;
-    instanceShaderBindingTableRecordOffset: u32;
-    #place instanceShaderBindingTableRecordOffset; /*bitfield 24*/ flags:                                  VkGeometryInstanceFlagsKHR;
-    accelerationStructureReference:         u64;
+    transformT0:                    VkSRTDataNV;
+    transformT1:                    VkSRTDataNV;
+    __bitfield:                     [8] u8;
+    /* 
+        instanceCustomIndex: u32; /* 24 bits */
+        mask: u32; /* 8 bits */
+        instanceShaderBindingTableRecordOffset: u32; /* 24 bits */
+        flags: VkGeometryInstanceFlagsKHR; /* 8 bits */;
+    */
+
+    accelerationStructureReference: u64;
 }
 
 VkAccelerationStructureMotionInstanceDataNV :: union {
@@ -16895,10 +16949,10 @@ VkOpacityMicromapFormatEXT :: enum u32 {
 }
 
 VkOpacityMicromapSpecialIndexEXT :: enum u32 {
-    FULLY_TRANSPARENT_EXT         :: 4294967295;
-    FULLY_OPAQUE_EXT              :: 4294967294;
-    FULLY_UNKNOWN_TRANSPARENT_EXT :: 4294967293;
-    FULLY_UNKNOWN_OPAQUE_EXT      :: 4294967292;
+    FULLY_TRANSPARENT_EXT         :: 0xffff_ffff;
+    FULLY_OPAQUE_EXT              :: 0xffff_fffe;
+    FULLY_UNKNOWN_TRANSPARENT_EXT :: 0xffff_fffd;
+    FULLY_UNKNOWN_OPAQUE_EXT      :: 0xffff_fffc;
     MAX_ENUM_EXT                  :: 2147483647;
 
     VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT         :: FULLY_TRANSPARENT_EXT;
@@ -17070,7 +17124,7 @@ PFN_vkBuildMicromapsEXT :: #type (device: VkDevice, deferredOperation: VkDeferre
 PFN_vkCopyMicromapEXT :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyMicromapInfoEXT) -> VkResult #c_call;
 PFN_vkCopyMicromapToMemoryEXT :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyMicromapToMemoryInfoEXT) -> VkResult #c_call;
 PFN_vkCopyMemoryToMicromapEXT :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyMemoryToMicromapInfoEXT) -> VkResult #c_call;
-PFN_vkWriteMicromapsPropertiesEXT :: #type (device: VkDevice, micromapCount: u32, pMicromaps: *VkMicromapEXT, queryType: VkQueryType, dataSize: size_t, pData: *void, stride: size_t) -> VkResult #c_call;
+PFN_vkWriteMicromapsPropertiesEXT :: #type (device: VkDevice, micromapCount: u32, pMicromaps: *VkMicromapEXT, queryType: VkQueryType, dataSize: u64, pData: *void, stride: u64) -> VkResult #c_call;
 PFN_vkCmdCopyMicromapEXT :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyMicromapInfoEXT) -> void #c_call;
 PFN_vkCmdCopyMicromapToMemoryEXT :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyMicromapToMemoryInfoEXT) -> void #c_call;
 PFN_vkCmdCopyMemoryToMicromapEXT :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyMemoryToMicromapInfoEXT) -> void #c_call;
@@ -17156,7 +17210,7 @@ VkDescriptorSetBindingReferenceVALVE :: struct {
 VkDescriptorSetLayoutHostMappingInfoVALVE :: struct {
     sType:            VkStructureType = .DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE;
     pNext:            *void;
-    descriptorOffset: size_t;
+    descriptorOffset: u64;
     descriptorSize:   u32;
 }
 
@@ -17748,7 +17802,7 @@ VkShaderCreateInfoEXT :: struct {
     stage:                  VkShaderStageFlagBits;
     nextStage:              VkShaderStageFlags;
     codeType:               VkShaderCodeTypeEXT;
-    codeSize:               size_t;
+    codeSize:               u64;
     pCode:                  *void;
     pName:                  *u8;
     setLayoutCount:         u32;
@@ -17762,7 +17816,7 @@ VkShaderRequiredSubgroupSizeCreateInfoEXT :: VkPipelineShaderStageRequiredSubgro
 
 PFN_vkCreateShadersEXT :: #type (device: VkDevice, createInfoCount: u32, pCreateInfos: *VkShaderCreateInfoEXT, pAllocator: *VkAllocationCallbacks, pShaders: *VkShaderEXT) -> VkResult #c_call;
 PFN_vkDestroyShaderEXT :: #type (device: VkDevice, shader: VkShaderEXT, pAllocator: *VkAllocationCallbacks) -> void #c_call;
-PFN_vkGetShaderBinaryDataEXT :: #type (device: VkDevice, shader: VkShaderEXT, pDataSize: *size_t, pData: *void) -> VkResult #c_call;
+PFN_vkGetShaderBinaryDataEXT :: #type (device: VkDevice, shader: VkShaderEXT, pDataSize: *u64, pData: *void) -> VkResult #c_call;
 PFN_vkCmdBindShadersEXT :: #type (commandBuffer: VkCommandBuffer, stageCount: u32, pStages: *VkShaderStageFlagBits, pShaders: *VkShaderEXT) -> void #c_call;
 
 VkPhysicalDeviceTilePropertiesFeaturesQCOM :: struct {
@@ -18041,7 +18095,7 @@ PFN_vkBuildAccelerationStructuresKHR :: #type (device: VkDevice, deferredOperati
 PFN_vkCopyAccelerationStructureKHR :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyAccelerationStructureInfoKHR) -> VkResult #c_call;
 PFN_vkCopyAccelerationStructureToMemoryKHR :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyAccelerationStructureToMemoryInfoKHR) -> VkResult #c_call;
 PFN_vkCopyMemoryToAccelerationStructureKHR :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pInfo: *VkCopyMemoryToAccelerationStructureInfoKHR) -> VkResult #c_call;
-PFN_vkWriteAccelerationStructuresPropertiesKHR :: #type (device: VkDevice, accelerationStructureCount: u32, pAccelerationStructures: *VkAccelerationStructureKHR, queryType: VkQueryType, dataSize: size_t, pData: *void, stride: size_t) -> VkResult #c_call;
+PFN_vkWriteAccelerationStructuresPropertiesKHR :: #type (device: VkDevice, accelerationStructureCount: u32, pAccelerationStructures: *VkAccelerationStructureKHR, queryType: VkQueryType, dataSize: u64, pData: *void, stride: u64) -> VkResult #c_call;
 PFN_vkCmdCopyAccelerationStructureKHR :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyAccelerationStructureInfoKHR) -> void #c_call;
 PFN_vkCmdCopyAccelerationStructureToMemoryKHR :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyAccelerationStructureToMemoryInfoKHR) -> void #c_call;
 PFN_vkCmdCopyMemoryToAccelerationStructureKHR :: #type (commandBuffer: VkCommandBuffer, pInfo: *VkCopyMemoryToAccelerationStructureInfoKHR) -> void #c_call;
@@ -18136,7 +18190,7 @@ VkTraceRaysIndirectCommandKHR :: struct {
 
 PFN_vkCmdTraceRaysKHR :: #type (commandBuffer: VkCommandBuffer, pRaygenShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pMissShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pHitShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pCallableShaderBindingTable: *VkStridedDeviceAddressRegionKHR, width: u32, height: u32, depth: u32) -> void #c_call;
 PFN_vkCreateRayTracingPipelinesKHR :: #type (device: VkDevice, deferredOperation: VkDeferredOperationKHR, pipelineCache: VkPipelineCache, createInfoCount: u32, pCreateInfos: *VkRayTracingPipelineCreateInfoKHR, pAllocator: *VkAllocationCallbacks, pPipelines: *VkPipeline) -> VkResult #c_call;
-PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: size_t, pData: *void) -> VkResult #c_call;
+PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR :: #type (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: u64, pData: *void) -> VkResult #c_call;
 PFN_vkCmdTraceRaysIndirectKHR :: #type (commandBuffer: VkCommandBuffer, pRaygenShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pMissShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pHitShaderBindingTable: *VkStridedDeviceAddressRegionKHR, pCallableShaderBindingTable: *VkStridedDeviceAddressRegionKHR, indirectDeviceAddress: VkDeviceAddress) -> void #c_call;
 PFN_vkGetRayTracingShaderGroupStackSizeKHR :: #type (device: VkDevice, pipeline: VkPipeline, group: u32, groupShader: VkShaderGroupShaderKHR) -> VkDeviceSize #c_call;
 PFN_vkCmdSetRayTracingPipelineStackSizeKHR :: #type (commandBuffer: VkCommandBuffer, pipelineStackSize: u32) -> void #c_call;
